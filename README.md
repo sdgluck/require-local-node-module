@@ -7,7 +7,7 @@ This is useful for a CLI application that, for example, has a peer dependency on
 module that should be the same version as is being used by whatever program lives 
 in the CWD.
 
-See also: [`require-global-node-module`](github.com/sdgluck/require-global-node-module)
+See also: [`require-global-node-module`](https://github.com/sdgluck/require-global-node-module)
 
 ## Install
 

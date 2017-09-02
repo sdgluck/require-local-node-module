@@ -1,13 +1,13 @@
 var path = require('path')
 var fs = require('fs')
 
-module.exports = function requireLocalNodeModule (module, opts) {
+module.exports = function requireLocalNodeModule (pkg, opts) {
   opts = opts || {}
 
   var distance = typeof opts.distance !== 'undefined' ? opts.distance : 3
   var folder = typeof opts.folder !== 'undefined' ? opts.folder : 'node_modules'
 
-  if (typeof module !== 'string' || !module.length) {
+  if (typeof pkg !== 'string' || !pkg.length) {
     throw new Error('Expecting module to be non-empty string')
   } else if (typeof folder !== 'string' || !folder.length) {
     throw new Error('Expecting folder to be non-empty string')
@@ -17,19 +17,19 @@ module.exports = function requireLocalNodeModule (module, opts) {
 
   var nodeModulesPath
 
-  for (let i = 0; i <= distance; i++) {
+  for (var i = 0; i < distance; i++) {
     nodeModulesPath = path.resolve(
       process.cwd(),
-      i > 0 ? new Array(i).fill('..').join('/') : '',
+      new Array(i).fill('..').join('/'),
       folder
     )
 
     if (fs.existsSync(nodeModulesPath) && fs.lstatSync(nodeModulesPath).isDirectory()) {
       break
     } else if (i === 2) {
-      throw new Error('Cannot require "' + module + '", no ' + folder + ' folder found')
+      throw new Error('Cannot require "' + pkg + '", no ' + folder + ' folder found')
     }
   }
 
-  return require(path.resolve(nodeModulesPath, module))
+  return require(path.resolve(nodeModulesPath, pkg))
 }
