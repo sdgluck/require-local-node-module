@@ -26,7 +26,7 @@ module.exports = function requireLocalNodeModule (pkg, opts) {
 
     if (fs.existsSync(nodeModulesPath) && fs.lstatSync(nodeModulesPath).isDirectory()) {
       break
-    } else if (i === 2) {
+    } else if (i === distance - 1) {
       throw new Error('Cannot require "' + pkg + '", no ' + folder + ' folder found')
     }
   }
